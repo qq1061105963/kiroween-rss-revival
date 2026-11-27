@@ -16,6 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="site-width">
             <Link className="brand" href="/">RSS 复活</Link>
             <nav aria-label="主导航">
+              <Link href="/articles" prefetch={false}>文章</Link>
               <Link href="/feeds">订阅管理</Link>
             </nav>
           </div>

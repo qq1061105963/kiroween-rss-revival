@@ -1,10 +1,14 @@
 import { createHash } from "node:crypto";
+import pLimit from "p-limit";
 import Parser from "rss-parser";
-import { hasFeed, insertFeed, type FeedArticle } from "./db";
+import { hasFeed, insertFeed, listFeeds, saveFeedError, saveFeedRefresh, type Feed, type FeedArticle } from "./db";
 
 type AtomFields = { id?: string; "rdf:about"?: string };
 const parser = new Parser<Record<string, never>, AtomFields>({ defaultRSS: 2 });
 const duplicateMessage = "这个订阅地址已存在。";
+const limitFetch = pLimit(5);
+const refreshInterval = 60 * 60 * 1000;
+let activeRefresh: Promise<void> | undefined;
 
 function text(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -81,7 +85,7 @@ export async function addFeed(input: string): Promise<AddFeedResult> {
   if (hasFeed(url.href)) return { ok: false, message: duplicateMessage };
 
   try {
-    const content = await fetchFeed(url.href);
+    const content = await limitFetch(fetchFeed, url.href);
     return insertFeed(url.href, content)
       ? { ok: true, title: content.title }
       : { ok: false, message: duplicateMessage };
@@ -89,4 +93,29 @@ export async function addFeed(input: string): Promise<AddFeedResult> {
     if (error instanceof FeedError) return { ok: false, message: error.message };
     throw error;
   }
+}
+
+async function refreshFeed(feed: Feed) {
+  try {
+    const content = await limitFetch(fetchFeed, feed.url);
+    saveFeedRefresh(feed, content);
+  } catch (error) {
+    if (!(error instanceof FeedError)) throw error;
+    saveFeedError(feed, error.message);
+  }
+}
+
+export function refreshDueFeeds() {
+  if (activeRefresh) return activeRefresh;
+
+  const cutoff = new Date(Date.now() - refreshInterval).toISOString();
+  const due = listFeeds().filter((feed) => !feed.last_fetched_at || feed.last_fetched_at < cutoff);
+  activeRefresh = Promise.allSettled(due.map(refreshFeed)).then((results) => {
+    for (const result of results) {
+      if (result.status === "rejected") console.error("无法保存订阅拉取结果。", result.reason);
+    }
+  }).finally(() => {
+    activeRefresh = undefined;
+  });
+  return activeRefresh;
 }

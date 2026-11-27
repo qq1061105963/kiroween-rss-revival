@@ -50,6 +50,13 @@ a {
   text-decoration: none;
 }
 
+.site-header nav,
+.view-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .main-content {
   padding-block: clamp(2rem, 5vw, 4rem);
 }
@@ -146,6 +153,10 @@ button:disabled {
   cursor: wait;
 }
 
+.secondary-button:disabled {
+  cursor: default;
+}
+
 .secondary-button {
   border-color: var(--line);
   background: transparent;
@@ -192,5 +203,42 @@ button:disabled {
   display: inline-block;
   margin-top: 0.25rem;
   overflow-wrap: anywhere;
+  font-size: 0.9rem;
+}
+
+.feed-error {
+  margin: 0.35rem 0 0;
+}
+
+.article-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.view-links a {
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.75rem;
+}
+
+.view-links a[aria-current="page"] {
+  background: var(--accent);
+  color: white;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.article-entry > button {
+  margin-top: 0.5rem;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin-top: 0.4rem;
   font-size: 0.9rem;
 }

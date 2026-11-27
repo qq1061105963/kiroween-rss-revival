@@ -28,6 +28,7 @@ export default async function FeedsPage() {
                 <div>
                   <h3>{feed.title}</h3>
                   <a className="entry-url" href={feed.url} target="_blank" rel="noopener noreferrer">{feed.url}</a>
+                  {feed.last_error && <p className="feed-error error">拉取失败 · {feed.last_error}</p>}
                 </div>
                 <form action={removeFeedAction.bind(null, feed.id)}>
                   <button type="submit" className="secondary-button" aria-label={`删除订阅「${feed.title}」`}>删除</button>
