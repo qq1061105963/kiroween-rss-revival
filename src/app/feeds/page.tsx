@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { listFeeds } from "../../lib/db";
 import { removeFeedAction } from "./actions";
 import { FeedForm } from "./feed-form";
+import { OpmlForm } from "./opml-form";
 
 export const metadata: Metadata = { title: "订阅管理" };
 
@@ -14,6 +15,13 @@ export default async function FeedsPage() {
     <>
       <h1>订阅管理</h1>
       <div className="panel"><FeedForm /></div>
+      <details className="panel opml-panel">
+        <summary>OPML 导入与导出</summary>
+        <div className="opml-tools">
+          <OpmlForm />
+          <a className="button secondary-button" href="/feeds/opml" download>导出 OPML</a>
+        </div>
+      </details>
       <section className="list-section" aria-labelledby="feeds-heading">
         <div className="section-heading">
           <h2 id="feeds-heading">我的订阅</h2>

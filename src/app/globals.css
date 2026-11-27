@@ -242,3 +242,41 @@ button:disabled {
   margin-top: 0.4rem;
   font-size: 0.9rem;
 }
+
+.opml-panel {
+  margin-top: 1rem;
+}
+
+.opml-panel summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.opml-tools {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.opml-tools .form-stack,
+.opml-results {
+  width: 100%;
+}
+
+.opml-results {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.opml-results li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.75rem;
+  overflow-wrap: anywhere;
+}
