@@ -38,6 +38,8 @@ a {
 .site-header .site-width {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   min-height: 4.5rem;
 }
 
@@ -56,4 +58,139 @@ h1 {
   margin: 0 0 1rem;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.2;
+}
+
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.35;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error {
+  color: #a02222;
+}
+
+.panel,
+.entry-list {
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.panel {
+  margin: 0;
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.form-stack {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.form-stack label {
+  font-weight: 650;
+}
+
+.form-row,
+.section-heading,
+.entry-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-row {
+  flex-wrap: wrap;
+}
+
+.form-row input {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+input,
+button,
+.button {
+  font: inherit;
+  min-height: 2.75rem;
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  padding: 0.5rem 0.875rem;
+}
+
+button,
+.button {
+  display: inline-block;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 650;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.secondary-button {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.form-stack [role="status"]:empty {
+  display: none;
+}
+
+.list-section {
+  margin-top: 2rem;
+}
+
+.section-heading,
+.entry-row {
+  justify-content: space-between;
+}
+
+.section-heading {
+  margin-bottom: 0.75rem;
+}
+
+.entry-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  padding: 1rem;
+}
+
+.entry + .entry {
+  border-top: 1px solid var(--line);
+}
+
+.entry-url {
+  display: inline-block;
+  margin-top: 0.25rem;
+  overflow-wrap: anywhere;
+  font-size: 0.9rem;
 }

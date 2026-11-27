@@ -7,10 +7,10 @@
   - [x] 1.2 写 `.env.local.example`（只留 `LLM_API_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` 键名）
   - [x] 1.3 `npm run build` 通过
 
-- [ ] 2. 数据层与订阅管理（需求 1）
-  - [ ] 2.1 `src/lib/db.ts`：建 feeds / articles / digests 三张表
-  - [ ] 2.2 订阅增删列表接口 + `/feeds` 页面
-  - [ ] 2.3 重复地址提示已存在；非法地址显示中文错误
+- [x] 2. 数据层与订阅管理（需求 1）
+  - [x] 2.1 `src/lib/db.ts`：建 feeds / articles / digests 三张表
+  - [x] 2.2 订阅增删列表接口 + `/feeds` 页面
+  - [x] 2.3 重复地址提示已存在；非法地址显示中文错误
 
 - [ ] 3. 拉取与文章列表（需求 2、5）
   - [ ] 3.1 `src/lib/rss.ts`：拉取解析、guid 去重、10 秒超时、并发 ≤5
