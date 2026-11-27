@@ -1,34 +1,42 @@
-# Kiroween 2026 · RSS 复活项目 /.kiro 起手包（草稿）
+# RSS 复活
 
-整理时间：2026-11-23（北京时间）。依据：用户 2026-10-31 在 Credits 申请表里确认的计划句——把经典 RSS 阅读器复活为现代 AI 策展阅读应用，用 Kiro 搭建，把被冷落的 RSS 源变成个性化摘要（LLM 摘要）；赛道 Resurrection；提交清单见同目录 `../Kiroween-提交清单.md`。
+Kiroween 2026 · Resurrection 赛道项目。这是一个中文本地 RSS 阅读器，支持 RSS/Atom 订阅、未读管理和 OPML 迁移。每日 AI 摘要见 [任务 4](.kiro/specs/rss-revival/tasks.md)，目前待实现。
 
-## 这是什么
+## 本地运行
 
-一个可直接放进公开 GitHub 仓库根目录的 `.kiro` 目录草稿，同时满足 Devpost 的硬性要求：**公开仓库根目录必须包含 `/.kiro` 目录，没有就过不了提交**（2026-11-12 Devpost 邮件）。
+需要 Node.js 24 或更新版本和 npm。在仓库根目录运行以下命令即可启动开发服务。
 
-## 怎么用
+```sh
+npm ci
+npm run dev -- --hostname 127.0.0.1
+```
 
-1. 在 GitHub 新建公开仓库（或用已有仓库），把本目录下的 `.kiro/` 整个复制到仓库根目录。
-2. 用 Kiro 打开该仓库，按 `tasks.md` 的顺序让 Kiro 做：先跑任务 1–3 出最小可用版本，再做 4–6。
-3. 技术栈是草稿里的默认建议（Next.js + TypeScript + SQLite，见 `tech.md`），不合适直接改 `tech.md` 再让 Kiro 按新栈重做 tasks。
+打开 [http://127.0.0.1:3000](http://127.0.0.1:3000)。首次访问订阅页或文章页时，应用会自动创建 `data/app.db`，订阅、文章和已读状态都保存在这里。
 
-## 包含的文件
+生产模式使用以下命令构建并启动。
 
-- `.kiro/steering/product.md`——产品定位：复活什么、给谁用、做到什么算成
-- `.kiro/steering/tech.md`——默认技术栈与硬性约束（中文界面、本地优先、摘要模型走环境变量配置，不写死密钥）
-- `.kiro/steering/structure.md`——仓库目录结构
-- `.kiro/specs/rss-revival/requirements.md`——需求（EARS 写法，可验收）
-- `.kiro/specs/rss-revival/design.md`——设计（模块、数据、接口）
-- `.kiro/specs/rss-revival/tasks.md`——任务清单（按顺序执行，每步可验收）
+```sh
+npm run build
+npm run start -- --hostname 127.0.0.1
+```
 
-## 截止时间
+## 模型配置
 
-- 提交截止：**2026-12-04 14:00 美西时间（PT）= 北京时间 2026-12-05 06:00**，还剩 11 天（以 2026-11-23 计）。
-- 4,000 credits 已到账，**2026-12-31 过期**。
-- 队伍最多 3 人（可选）。
+当前的订阅、文章和 OPML 功能可以直接使用。每日摘要接通后，复制 `.env.local.example` 为 `.env.local`，填写以下三项并重启应用。
 
-## 还缺什么（需用户定）
+| 环境变量 | 填写内容 |
+| --- | --- |
+| `LLM_API_BASE_URL` | 模型服务商文档中的 API 基址 |
+| `LLM_API_KEY` | 模型服务的 API 密钥 |
+| `LLM_MODEL` | 服务商提供的模型标识 |
 
-- 项目仓库地址：目前没有记录，清单备注也是“仓库地址确认后可再补一版对照检查”。
-- 技术栈是否接受默认（Next.js + TypeScript + SQLite），还是换别的。
-- 摘要用的模型/API：credits 是 Kiro 账号内的额度，代码里只留环境变量接口，不代填任何密钥。
+真实密钥保存在 `.env.local`。摘要的无模型降级行为见 [需求 3](.kiro/specs/rss-revival/requirements.md#需求-3每日摘要核心)。
+
+## 本地演示
+
+1. 打开「订阅管理」，添加 `https://www.ruanyifeng.com/blog/atom.xml`，查看保存的订阅标题。再添加一次可看到重复地址提示。
+2. 打开「文章」，查看按发布时间倒序排列的未读文章。点一篇标题，原文会在新标签页打开，该条会从未读列表移除。
+3. 点击「全部标为已读」，再切换到「全部」，查看已读状态。打开文章页时，超过一小时未拉取的来源会自动刷新。若拉取失败，可以在订阅页查看对应的中文原因。
+4. 回到「订阅管理」，展开「OPML 导入与导出」。下载的 `rss-revival.opml` 包含全部订阅。将它导回同一个阅读器，可逐条看到重复提示。也可以导入其他阅读器的 OPML 文件，查看每条订阅的结果。
+
+完整比赛演示的分镜见 [演示视频脚本草稿](演示视频脚本草稿.md)，包含待实现的摘要环节。产品、技术约束与验收清单位于 [.kiro/](.kiro/)。
