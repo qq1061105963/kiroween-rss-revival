@@ -1,0 +1,59 @@
+:root {
+  color-scheme: light;
+  --paper: #f5f7f2;
+  --surface: #ffffff;
+  --ink: #18281f;
+  --muted: #4b6053;
+  --accent: #245c40;
+  --line: #d4ded4;
+  font-family: system-ui, "Microsoft YaHei", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.18em;
+}
+
+.site-width {
+  width: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+}
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .site-width {
+  display: flex;
+  align-items: center;
+  min-height: 4.5rem;
+}
+
+.brand {
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.main-content {
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.2;
+}

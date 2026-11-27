@@ -2,10 +2,10 @@
 
 按顺序执行，每步跑通再下一步。11 天倒排建议：第 1–2 天做任务 1–3，第 3–5 天做 4–5，第 6–7 天做 6，第 8–9 天联调 + 录演示，第 10–11 天提交。
 
-- [ ] 1. 建工程骨架
-  - [ ] 1.1 初始化 Next.js + TypeScript 工程，配好 `.gitignore`（含 `.env.local`、`data/app.db`）
-  - [ ] 1.2 写 `.env.local.example`（只留 `LLM_API_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` 键名）
-  - [ ] 1.3 `npm run build` 通过
+- [x] 1. 建工程骨架
+  - [x] 1.1 初始化 Next.js + TypeScript 工程，配好 `.gitignore`（含 `.env.local`、`data/app.db`）
+  - [x] 1.2 写 `.env.local.example`（只留 `LLM_API_BASE_URL` / `LLM_API_KEY` / `LLM_MODEL` 键名）
+  - [x] 1.3 `npm run build` 通过
 
 - [ ] 2. 数据层与订阅管理（需求 1）
   - [ ] 2.1 `src/lib/db.ts`：建 feeds / articles / digests 三张表
